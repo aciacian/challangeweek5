@@ -1,0 +1,160 @@
+<%- include('partials/sidebar.ejs') %>
+    <main class="main close mt-3">
+        <div class="rule pt-3 mb-3">
+            <a class="fw-bold">CARS<i class='bx bx-chevron-right'></i></a>
+            <a>List Car</a>
+        </div>
+
+        <div class="pt-2 d-flex justify-content-between">
+            <h4 class="h4 fw-bold">List Car</h4>
+            <form action="/add-car" method="get">
+                <button class="btn btn-blue fw-bold float-end" style="font-size: 14px;">
+                    <i class="bx bx-plus me-3 align-middle"></i>Add New Car
+                </button>
+            </form>
+        </div>
+
+        <div class="py-3 d-flex justify-content-start">
+            <form action="/">
+                <button class="btn bg-white btn-outline-primary fw-bold btn-filter-size me-3" id="filterAll">
+                    All
+                </button>
+            </form>
+            <form action="/">
+                <button name="q" value="Small" class="btn bg-white btn-outline-primary fw-bold btn-filter-size me-3"
+                    id="filterSmall">
+                    Small
+                </button>
+            </form>
+            <form action="/">
+                <button name="q" value="Medium" class="btn bg-white btn-outline-primary fw-bold btn-filter-size me-3"
+                    id="filterMedium">
+                    Medium
+                </button>
+            </form>
+            <form action="/">
+                <button name="q" value="Large" class="btn bg-white btn-outline-primary fw-bold btn-filter-size me-3"
+                    id="filterLarge">
+                    Large
+                </button>
+            </form>
+        </div>
+
+        <!-- Card Car -->
+        <div class="container-fluid my-3 ms-5">
+            <div class="row row-cols-lg-4 me-2 ms-5" id="cars-container">
+                <% data.forEach((element)=> { %>
+                    <!-- <div class="container ms-4 justify-content-center"> -->
+                    <div class="row row-cols-lg-3 row-cols-sm-4 row-cols-1 g-3 justify-content-center mx-4 ms-4">
+                        <div class="card shadow-sm col-4 my-3" style="min-width: 17rem;border-radius: 8px;">
+                            <img src="images/<%= element.urlfoto %>" class="card-img-top p-3 mb-3" alt="..."
+                                style="height: 190px; object-fit: scale-down;">
+                            <div class="card-body">
+                                <p>
+                                    <%= element.nama %> / <%= element.ukuran %> 
+                                </p>
+                                <!-- JavaScript Get Month Name and Decimal Place from Price -->
+                                <% const monthNames=["Jan", "Feb" , "Mar" , "Apr" , "May" , "Jun" ,"Jul", "Aug" , "Sep", "Oct" , "Nov" , "Dec" ]; 
+                               
+                                const priceStr=element.hargasewa.toString();
+                                
+                                var i=priceStr.length; 
+                                var renderPrice='' ; 
+                                var counter=0;
+
+                                if (element.updatedate.getMinutes() < 10){
+                                    var minutes = '0' + element.updatedate.getMinutes().toString();
+                                } else {
+                                    minutes = element.updatedate.getMinutes();
+                                }
+                                
+                                while (i> 0){
+                                    renderPrice = priceStr[i-1] + renderPrice;
+                                    i--;
+                                    counter++;
+                                    if(counter == 3 && i !== 0){
+                                    renderPrice = '.' + renderPrice;
+                                    counter = 0;
+                                    }
+                                    }
+                                    %>
+                                    <h5 class="price fw-bold">Rp <%= renderPrice%> / hari</h5>
+                                    <p><img src="/images/fi_clock.svg" alt="" class="poin mr-3"> Updated at <%=
+                                            element.updatedate.getDate()%>
+                                            <%= monthNames[element.updatedate.getMonth()]%>
+                                                <%= element.updatedate.getFullYear()%>, <%= element.updatedate.getHours()%>.<%= minutes %>
+                                    </p>
+                                    <a href="" type="button" class="btn btn-outline-danger fw-bold btn-card mx-1"
+                                        style="font-size: 14px;" data-bs-toggle="modal"
+                                        data-bs-target="#delete-car<%= element.id%>"><i
+                                            class='bx bx-trash-alt me-2'></i>Delete</a>
+                                    <a href="/update-car/<%= element.id %>" type="button"
+                                        class="btn green-4 text-white fw-bold btn-card"><i
+                                            class='bx bxs-edit me-2 ms-2'></i>Edit</a>
+                                    <!-- Modal Delete -->
+                                    <div class="modal fade" id="delete-car<%= element.id%>" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered"
+                                            style="max-width: 387px; max-height: 333px;">
+                                            <div class="modal-content">
+                                                <div class="modal-body align-items-center text-center m-auto">
+                                                    <img src="/images/img-BeepBeep.png" alt="" class="m-auto">
+                                                    <h3 class="fw-bold my-4">Menghapus Data Mobil</h3>
+                                                    <p class="mb-4" style="max-width: 300px;">Setelah dihapus, data
+                                                        mobil
+                                                        tidak
+                                                        dapat dikembalikan. Yakin ingin menghapus?</p>
+                                                    <form action="/delete-car/<%= element.id%>" method="post">
+                                                        <button type="submit"
+                                                            class="btn btn-blue btn-medium fw-bold mx-2" name=""
+                                                            value="" onclick="confirm()">Ya</button>
+                                                        <button type="button"
+                                                            class="btn btn-white btn-medium fw-bold mx-2"
+                                                            data-bs-dismiss="modal" aria-label="Close">Tidak</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+
+            </div>
+        </div>
+
+    </main>
+    </body>
+    <script src="/js/navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script>
+
+        
+      
+        function confirm() {
+            let timerInterval
+            Swal.fire({
+                title: 'Data Berhasil Dihapus',
+                timer: 1000,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100)
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('I was closed by the timer')
+                }
+            })
+        }
+    </script>
+    </html>

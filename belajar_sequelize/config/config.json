@@ -1,0 +1,14 @@
+{
+  "development": {
+    "username": "aciacian",
+    "password": "123456",
+    "database": "binarcar",
+    "host": "localhost",
+    "dialect": "postgres",
+    "logging":false,
+    "define":{
+      "timestamps": false,
+      "freezeTableName": true
+    }
+  }
+}

@@ -1,0 +1,64 @@
+<%- include('partials/sidebar.ejs') %>
+
+    <main class="main close my-3">
+        <div class="rule pt-3">
+            <a class="fw-bold">CARS<i class='bx bx-chevron-right'></i></a>
+            <a class="fw-bold" href="/">List Car</a><i class='bx bx-chevron-right'></i>
+            <a>Add New Car</a>
+        </div>
+        <h4 class="fw-bold my-3">Add New Car</h4>
+        <form action="/addnewcar" method="post" >
+            <div class="container-fluid create-form mt-4 pt-2" style="background-color: #ffff;">
+                <div class="row my-3">
+                    <div class="col-2">
+                        <label for="">Nama<span>*</span></label>
+                    </div>
+                    <div class="col-4">
+                        <input name="nama" type="text" class="form-control" placeholder="Nama" required>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-2">
+                        <label for="">Sewa Per Hari<span>*</span></label>
+                    </div>
+                    <div class="col-4">
+                        <input name="hargasewa" type="text" class="form-control" placeholder="Rp 0,-" required>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-2">
+                        <label for="">Ukuran<span>*</span></label>
+                    </div>
+                    <div class="col-4">
+                        <select name="ukuran" class="form-select" id="inputGroupSelect02">
+                            <option value="Small" selected>Small</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Large">Large</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-2">
+                        <label for="">Foto<span>*</span></label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="urlfoto" class="form-control" placeholder="https://" required>
+                        <p>File size max 2MB</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-5 pt-5">
+                <a href="/" type="submit" class="btn btn-white btn-small fw-bold mx-2">Cancel</a>
+                <button type="submit" class="btn btn-blue btn-small fw-bold mx-2">Save
+                </button>
+            </div>
+        </form>
+    </main>
+    </body>
+    <script src="/js/navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    </html>
